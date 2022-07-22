@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  ethnodetest:
+    build:
+      context: ./
+    image: eth-test-node
+    ports:
+      - '8545:8545'
+    volumes:
+      - ethnode_demo:/root/.ethereum
+    command: geth
+      --syncmode full
+      --networkid ${NETWORK_ID}
+      --http --http.addr 0.0.0.0 --http.corsdomain "*" --http.vhosts "*" --http.api "eth,web3,net,admin,db,miner"
+      --mine --miner.etherbase ${ACCOUNT_1}
+      --miner.gasprice 0
+      --allow-insecure-unlock
+      --unlock ${ACCOUNT_1} --password password.txt
+  
+volumes:
+  ethnode_demo:
+  
