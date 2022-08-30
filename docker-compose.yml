@@ -17,6 +17,15 @@ services:
       --miner.gasprice 0
       --allow-insecure-unlock
       --unlock ${ACCOUNT_1} --password password.txt
+
+  explorer:
+    depends_on:
+      - ethnodetest
+    image: alethio/ethereum-lite-explorer
+    ports:
+      - 3000:80
+    environment:
+      - APP_NODE_URL=http://localhost:8545/
   
 volumes:
   ethnode_demo:
